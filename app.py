@@ -108,16 +108,16 @@ Job Requirements:
         if not groq_key:
             st.error("❌ Please enter your Groq API key in the sidebar first!")
         else:
-                try:
-                    if modules_loaded:
+            try:
+                if modules_loaded:
                     # Step 1: Get candidates (fast mock data)
                     with st.spinner("🔍 Finding candidates..."):
                         try:
-                        candidates = searcher.search_linkedin_profiles(windsurf_job)
+                            candidates = searcher.search_linkedin_profiles(windsurf_job)
                             if not candidates:
                                 st.error("❌ No candidates found!")
                                 st.stop()
-                        st.success(f"✅ Found {len(candidates)} candidates")
+                            st.success(f"✅ Found {len(candidates)} candidates")
                         except Exception as e:
                             st.error(f"❌ Search failed: {str(e)}")
                             st.stop()
@@ -143,7 +143,7 @@ Job Requirements:
                         st.stop()
                     
                     # Step 2: Score candidates
-                        with st.spinner("🎯 Scoring candidates..."):
+                    with st.spinner("🎯 Scoring candidates..."):
                         try:
                             scored_candidates = scorer.score_candidates_batch(candidate_profiles, windsurf_job)
                             if not scored_candidates:
@@ -156,11 +156,11 @@ Job Requirements:
                             st.stop()
                     
                     # Store results
-                        st.session_state['candidates'] = scored_candidates
-                        st.session_state['job_desc'] = windsurf_job
-                        
+                    st.session_state['candidates'] = scored_candidates
+                    st.session_state['job_desc'] = windsurf_job
+                    
                     # Step 3: Generate messages
-                        with st.spinner("💬 Generating personalized messages..."):
+                    with st.spinner("💬 Generating personalized messages..."):
                         try:
                             top_5_for_outreach = []
                             for candidate in scored_candidates[:5]:
@@ -188,65 +188,65 @@ Job Requirements:
                         
                         st.success("🎉 Analysis complete! Check the other tabs for detailed results.")
                         
-                    else:
-                        # Demo mode with sample data
-                        st.info("📋 Running in demo mode with sample data...")
-                        sample_candidates = [
-                            {
-                                "name": "Sarah Chen",
-                                "linkedin_url": "https://linkedin.com/in/sarah-chen-ml",
-                                "headline": "Senior ML Engineer at OpenAI",
-                                "company": "OpenAI",
-                                "location": "San Francisco, CA",
-                                "fit_score": 8.7,
-                                "score_breakdown": {
-                                    "education": 9.0,
-                                    "trajectory": 8.5,
-                                    "company": 9.5,
-                                    "skills": 9.0,
-                                    "location": 8.0,
-                                    "tenure": 8.0
-                                }
-                            },
-                            {
-                                "name": "Alex Kumar", 
-                                "linkedin_url": "https://linkedin.com/in/alex-kumar-ai",
-                                "headline": "AI Research Scientist at Google DeepMind",
-                                "company": "Google DeepMind",
-                                "location": "Mountain View, CA",
-                                "fit_score": 8.4,
-                                "score_breakdown": {
-                                    "education": 8.5,
-                                    "trajectory": 7.5,
-                                    "company": 9.5,
-                                    "skills": 8.5,
-                                    "location": 10.0,
-                                    "tenure": 7.0
-                                }
-                            },
-                            {
-                                "name": "Priya Patel",
-                                "linkedin_url": "https://linkedin.com/in/priya-patel-ml", 
-                                "headline": "Machine Learning Engineer at Anthropic",
-                                "company": "Anthropic",
-                                "location": "San Francisco, CA",
-                                "fit_score": 7.9,
-                                "score_breakdown": {
-                                    "education": 7.0,
-                                    "trajectory": 7.5,
-                                    "company": 9.0,
-                                    "skills": 8.0,
-                                    "location": 8.0,
-                                    "tenure": 8.5
-                                }
+                else:
+                    # Demo mode with sample data
+                    st.info("📋 Running in demo mode with sample data...")
+                    sample_candidates = [
+                        {
+                            "name": "Sarah Chen",
+                            "linkedin_url": "https://linkedin.com/in/sarah-chen-ml",
+                            "headline": "Senior ML Engineer at OpenAI",
+                            "company": "OpenAI",
+                            "location": "San Francisco, CA",
+                            "fit_score": 8.7,
+                            "score_breakdown": {
+                                "education": 9.0,
+                                "trajectory": 8.5,
+                                "company": 9.5,
+                                "skills": 9.0,
+                                "location": 8.0,
+                                "tenure": 8.0
                             }
-                        ]
-                        
-                        st.session_state['candidates'] = sample_candidates
-                        st.session_state['job_desc'] = windsurf_job
-                        st.success("✅ Demo data loaded! Check other tabs for results.")
-                        
-                except Exception as e:
+                        },
+                        {
+                            "name": "Alex Kumar", 
+                            "linkedin_url": "https://linkedin.com/in/alex-kumar-ai",
+                            "headline": "AI Research Scientist at Google DeepMind",
+                            "company": "Google DeepMind",
+                            "location": "Mountain View, CA",
+                            "fit_score": 8.4,
+                            "score_breakdown": {
+                                "education": 8.5,
+                                "trajectory": 7.5,
+                                "company": 9.5,
+                                "skills": 8.5,
+                                "location": 10.0,
+                                "tenure": 7.0
+                            }
+                        },
+                        {
+                            "name": "Priya Patel",
+                            "linkedin_url": "https://linkedin.com/in/priya-patel-ml", 
+                            "headline": "Machine Learning Engineer at Anthropic",
+                            "company": "Anthropic",
+                            "location": "San Francisco, CA",
+                            "fit_score": 7.9,
+                            "score_breakdown": {
+                                "education": 7.0,
+                                "trajectory": 7.5,
+                                "company": 9.0,
+                                "skills": 8.0,
+                                "location": 8.0,
+                                "tenure": 8.5
+                            }
+                        }
+                    ]
+                    
+                    st.session_state['candidates'] = sample_candidates
+                    st.session_state['job_desc'] = windsurf_job
+                    st.success("✅ Demo data loaded! Check other tabs for results.")
+                    
+            except Exception as e:
                 st.error(f"❌ Error during analysis: {str(e)}")
                 logger.error(f"Analysis failed: {e}")
                 st.stop()
