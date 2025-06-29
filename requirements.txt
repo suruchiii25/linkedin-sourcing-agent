@@ -1,0 +1,39 @@
+# ===================================================================
+# LinkedIn Sourcing Agent - Requirements for Hugging Face Deployment
+# ===================================================================
+
+# Core Web Framework
+streamlit==1.28.0              # Main web interface framework for demos
+fastapi==0.104.1               # Alternative API framework (if needed)
+uvicorn[standard]==0.24.0      # ASGI server for running FastAPI
+
+# Data Models & Validation  
+pydantic==2.5.0                # Data validation and serialization
+
+# HTTP Requests & Web Scraping
+requests==2.31.0               # Making HTTP requests to APIs and websites
+httpx==0.25.2                  # Async HTTP client (used by Groq internally)
+beautifulsoup4==4.12.2         # HTML parsing for extracting LinkedIn data
+lxml==4.9.3                    # XML/HTML parser (faster than built-in parser)
+
+# AI & Language Models
+groq==0.4.1                    # Free AI API client for LLM scoring and message generation
+
+# Search & Data Processing
+googlesearch-python==1.2.3     # Google search integration for finding LinkedIn profiles
+pandas==2.1.4                  # Data manipulation and analysis
+
+# Configuration & Environment
+python-dotenv==1.0.0           # Loading environment variables from .env file
+
+# ===================================================================
+# Why Each Package:
+# ===================================================================
+# streamlit: Professional demo interface that's easy to deploy
+# groq: Free alternative to OpenAI for AI-powered scoring and messages  
+# requests + beautifulsoup4: Web scraping LinkedIn search results safely
+# googlesearch-python: Finding LinkedIn profiles through Google search
+# pandas: Organizing and analyzing candidate data efficiently
+# pydantic: Ensuring data quality and type safety
+# python-dotenv: Secure API key management
+# ===================================================================
